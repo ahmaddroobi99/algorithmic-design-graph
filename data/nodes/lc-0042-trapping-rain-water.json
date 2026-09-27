@@ -1,0 +1,50 @@
+{
+  "id": "lc-0042-trapping-rain-water",
+  "node_type": "algorithmic_design_problem",
+  "symbol": "42",
+  "title": "Trapping Rain Water",
+  "labels": ["array", "two-pointers", "interview-canon"],
+  "provenance": {
+    "source_platform": "leetcode",
+    "source_id": "42",
+    "source_slug": "trapping-rain-water",
+    "source_url": "https://leetcode.com/problems/trapping-rain-water/",
+    "source_repo": "ahmaddroobi99/ProblemSolving",
+    "source_path": "trappingRainWater(hard Apple question).py",
+    "authorship": "original",
+    "copied_marker": false,
+    "year": 2021,
+    "notes": "Filename frames the design as an Apple interview hard. Code is the O(n)/O(1) two-pointer march."
+  },
+  "io_spec": {
+    "input": "height: list[int]",
+    "output": "trapped: int",
+    "examples": [{"in": [0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1], "out": 6, "why": "Each valley is bounded by the min of its two walls."}],
+    "invariants": ["water at i equals max(0, min(left_max[i], right_max[i]) - height[i])"]
+  },
+  "narrative": {
+    "asked": "Given a 1D elevation map, how much water stays after rain?",
+    "objects": ["bars", "left bound", "right bound", "valley cells"]
+  },
+  "knowledge_extract": {
+    "problem_family": "bounded-volume-from-extrema",
+    "operators": ["two-pointer bound march"],
+    "what_must_be_known": "At index i, only the minimum of the two side-maxima matters.",
+    "naive": "For each i, scan left and right for maxima.",
+    "insight": "Always advance the side whose current height is smaller; that running max is the binding constraint."
+  },
+  "algorithmic_design": {
+    "approach_name": "two-pointer bound march",
+    "steps": [
+      {"id": "S1", "intent": "own the two ends", "action": "l, r = 0, n-1; lmax = rmax = 0; ans = 0"},
+      {"id": "S2", "intent": "decide which wall is binding", "action": "if height[l] <= height[r], water is limited by lmax; else by rmax", "depends_on": ["S1"]},
+      {"id": "S3", "intent": "account then advance", "action": "update side-max, add trapped units, move that pointer inward", "depends_on": ["S2"]}
+    ],
+    "complexity": {"time": "O(n)", "space": "O(1)"},
+    "why_this_not_that": "Prefix arrays are the same invariant with O(n) extra memory."
+  },
+  "artifact": {
+    "language": "python3",
+    "path": "ahmaddroobi99/ProblemSolving/trappingRainWater(hard Apple question).py"
+  }
+}
